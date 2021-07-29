@@ -64,10 +64,12 @@ jobs:
         run: docker image prune -af
       - name: Thundra Gradle Test Instrumentation
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
-        uses: thundra-io/thundra-gradle-test-action@v1
+        uses: thundra-io/thundra-gradle-test-action@remove-required-params
         with:
-          apikey: ${{ secrets.THUNDRA_DEMO_ACCOUNT_APIKEY_LAB }}
-          project_id: 8e79620c-98ca-4b68-be83-4025df069cbb
+          apikey: ${{ secrets.THUNDRA_API_KEY }}
+          project_id: ${{ secrets.THUNDRA_PROJECT_ID }}
+          # apikey: ${{ secrets.THUNDRA_DEMO_ACCOUNT_APIKEY_LAB }}
+          # project_id: 8e79620c-98ca-4b68-be83-4025df069cbb
       - name: Build and test with Gradle (${{matrix.gradle_args}})
         run: |
           ./gradlew --no-daemon --continue --scan ${{matrix.gradle_args}} \
