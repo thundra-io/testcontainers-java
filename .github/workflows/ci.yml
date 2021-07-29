@@ -60,8 +60,8 @@ jobs:
       #   with:
       #     path: ~/.gradle/caches
       #     key: ${{ runner.os }}-gradle-home-${{matrix.gradle_args}}_check-${{ hashFiles('**/*.gradle') }}
-      - name: Clear existing docker image cache
-        run: docker image prune -af
+      # - name: Clear existing docker image cache
+      #   run: docker image prune -af
       - name: Thundra Gradle Test Instrumentation
         uses: thundra-io/thundra-gradle-test-action@remove-required-params
         with:
@@ -76,12 +76,12 @@ jobs:
         env:
           THUNDRA_AGENT_REPORT_REST_BASEURL: https://collector.thundra.me/v1
           THUNDRA_AGENT_TEST_RUN_ID: ${{ needs.set_thundra_testrun_id.outputs.thundra_agent_testrun_id }}
-  httpclient5_test:
-    runs-on: ubuntu-18.04
-    steps:
-      - uses: actions/checkout@v2
-      - name: Build with Gradle
-        run: |
-          echo "transport.type=httpclient5" > $HOME/.testcontainers.properties
-          cat $HOME/.testcontainers.properties
-          ./gradlew --no-daemon --scan testcontainers:test --tests '*EventStreamTest'
+  # httpclient5_test:
+  #   runs-on: ubuntu-18.04
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - name: Build with Gradle
+  #       run: |
+  #         echo "transport.type=httpclient5" > $HOME/.testcontainers.properties
+  #         cat $HOME/.testcontainers.properties
+  #         ./gradlew --no-daemon --scan testcontainers:test --tests '*EventStreamTest'
