@@ -63,7 +63,6 @@ jobs:
       - name: Clear existing docker image cache
         run: docker image prune -af
       - name: Thundra Gradle Test Instrumentation
-        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
         uses: thundra-io/thundra-gradle-test-action@remove-required-params
         with:
           apikey: ${{ secrets.THUNDRA_API_KEY }}
